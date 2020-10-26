@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "530888491304",
+    "firebase_url": "https://comhra-35d60.firebaseio.com",
+    "project_id": "comhra-35d60",
+    "storage_bucket": "comhra-35d60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530888491304:android:43888481368437dc9b101d",
+        "android_client_info": {
+          "package_name": "com.github.ulkellyryan.comhra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530888491304-lhi46rpl0au3cdrjchq75iafvb9q4si5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8Wv24ZlW4P_yXh8sVd1ImATKIsTLN5T0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530888491304-lhi46rpl0au3cdrjchq75iafvb9q4si5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
