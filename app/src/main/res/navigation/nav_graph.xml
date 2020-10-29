@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/login">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph">
 
-    <fragment
-        android:id="@+id/login"
-        android:name="com.github.ulkellyryan.comhra.Login"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_login_to_newsFeed"
-            app:destination="@id/newsFeed" />
-    </fragment>
-    <fragment
-        android:id="@+id/newsFeed"
-        android:name="com.github.ulkellyryan.comhra.NewsFeed"
-        android:label="fragment_news_feed"
-        tools:layout="@layout/fragment_news_feed" />
 </navigation>
