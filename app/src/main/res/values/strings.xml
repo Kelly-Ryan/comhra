@@ -4,4 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loginButtonText">Login</string>
     <string name="comhrá">comhrá</string>
+    <string name="loginText">Login</string>
+    <string name="submitPostButtonText">Submit Post</string>
+    <string name="createNewPostButtonText">Create New Post</string>
+    <string name="Profile" />
+    <string name="profileButtonText">Profile</string>
+    <string name="friendsListButtonText">Friends</string>
 </resources>
