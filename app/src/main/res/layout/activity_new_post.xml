@@ -6,27 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".NewPostActivity">
 
-    <EditText
-        android:id="@+id/newPostText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginTop="158dp"
-        android:ems="10"
-        android:inputType="textLongMessage|textMultiLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/submitPostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
-        android:layout_marginBottom="418dp"
-        android:onClick="newPost"
+        android:layout_marginTop="28dp"
+        android:onClick="submitPost"
         android:text="@string/submitPostButtonText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/newPostText"
-        app:layout_constraintStart_toStartOf="@+id/newPostText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newPostText" />
+
+    <Button
+        android:id="@+id/photoBtn"
+        android:layout_width="60dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="64dp"
+        android:contentDescription="photo button"
+        android:onClick="photo"
+        app:icon="@android:drawable/ic_menu_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPostText" />
+
+    <EditText
+        android:id="@+id/newPostText"
+        android:layout_width="283dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/textPostHint"
+        android:imeOptions="actionSend"
+        android:inputType="textMultiLine|textAutoCorrect"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comhra_logo3" />
+
+    <ImageView
+        android:id="@+id/comhra_logo3"
+        android:layout_width="239dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/comhr__logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ public class NewsFeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
-        loadNewsFeed();     //retrieve 5 most recent posts from Cloud Firestore
+        loadNewsFeed();     //retrieve 5 most recent posts from Cloud FireStore
     }
 
     public void loadStockPosts(){
@@ -84,6 +84,11 @@ public class NewsFeedActivity extends AppCompatActivity {
     //start NewPostActivity
     public void createNewPost(View view){
         Intent intent = new Intent(this, NewPostActivity.class);
+        startActivity(intent);
+    }
+
+    public void viewProfile(View view){
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }

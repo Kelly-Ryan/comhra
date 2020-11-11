@@ -20,7 +20,7 @@ public class NewPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_post);
     }
 
-    public void newPost(View view){
+    public void submitPost(View view){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         EditText newPost = findViewById(R.id.newPostText);
@@ -29,6 +29,11 @@ public class NewPostActivity extends AppCompatActivity {
 
         //go back to DisplayPostsActivity where new post can be seen
         Intent intent = new Intent(this, NewsFeedActivity.class);
+        startActivity(intent);
+    }
+
+    public void photo(View view){
+        Intent intent = new Intent(this, PhotoActivity.class);
         startActivity(intent);
     }
 }
