@@ -1,6 +1,7 @@
 package com.github.ulkellyryan.comhra;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +37,7 @@ public class NewsFeedActivity extends AppCompatActivity {
     public void loadStockPosts(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //preloaded posts
-        Post post1 = new Post("Welcome to the Comhrá!", "admin", Timestamp.now());
+        Post post1 = new Post("Welcome to Comhrá!", "admin", Timestamp.now());
         db.collection("posts").add(post1);
         Post post2 = new Post("Register today!", "admin", Timestamp.now());
         db.collection("posts").add(post2);
