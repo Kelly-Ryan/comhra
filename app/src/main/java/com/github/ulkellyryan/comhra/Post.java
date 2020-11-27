@@ -40,18 +40,20 @@ public class Post {
         return timestamp;
     }
 
+    public String getDate(){
+        DateFormat df = DateFormat.getDateTimeInstance();
+        return df.format(getTimestamp().toDate());
+    }
+
     public String getImageUri(){
         return imageUri;
     }
 
     public String toString(){
-        DateFormat df = DateFormat.getDateTimeInstance();
-        String date = df.format(getTimestamp().toDate());
-
         if(imageUri != null){
-            return "Post: " + getText() + "\n" + "Image uri:" + getImageUri() + "\n" + "User: " + getUser() + "\n" + date;
+            return "Post: " + getText() + "\n" + "Image uri:" + getImageUri() + "\n" + "User: " + getUser() + "\n" + getDate();
         } else {
-            return "Post: " + getText() + "\n" + "User: " + getUser() + "\n" + date;
+            return "Post: " + getText() + "\n" + "User: " + getUser() + "\n" + getDate();
         }
     }
 }
