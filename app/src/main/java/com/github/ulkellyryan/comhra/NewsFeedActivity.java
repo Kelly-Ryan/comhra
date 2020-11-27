@@ -1,17 +1,15 @@
 package com.github.ulkellyryan.comhra;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,26 +25,14 @@ import java.util.List;
 
 public class NewsFeedActivity extends AppCompatActivity {
 
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
+        context = getApplicationContext();
         loadNewsFeed();     //retrieve 5 most recent posts from Cloud FireStore
-    }
-
-    public void loadStockPosts(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        //preloaded posts
-        Post post1 = new Post("Welcome to Comhrá!", "admin", Timestamp.now());
-        db.collection("posts").add(post1);
-        Post post2 = new Post("Register today!", "admin", Timestamp.now());
-        db.collection("posts").add(post2);
-        Post post3 = new Post("Login to view posts!", "admin", Timestamp.now());
-        db.collection("posts").add(post3);
-        Post post4 = new Post("Create your own posts!", "admin", Timestamp.now());
-        db.collection("posts").add(post4);
-        Post post5 = new Post("Tell us what you think!", "admin", Timestamp.now());
-        db.collection("posts").add(post5);
     }
 
     public void loadNewsFeed(){
@@ -72,6 +58,12 @@ public class NewsFeedActivity extends AppCompatActivity {
                                 for(int i = 0, j = 4; (i < 5 && j >= 0); i++, j--){
                                     recentPosts[i].setText(listPosts.get(j).toString());
                                 }
+
+                                ImageView photo = findViewById(R.id.imageView2);
+                                GlideApp.with(context)
+                                        .load(Uri.parse(listPosts.get(4).getImageUri()))
+                                        .override(600,600)
+                                        .into(photo);
                             } else {
                                 Log.w("tag", "Error getting documents.", task.getException());
                             }
@@ -92,5 +84,20 @@ public class NewsFeedActivity extends AppCompatActivity {
     public void viewProfile(View view){
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+    }
+
+    public void loadStockPosts(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //preloaded posts
+        Post post1 = new Post("Welcome to Comhrá!", "admin", Timestamp.now());
+        db.collection("posts").add(post1);
+        Post post2 = new Post("Register today!", "admin", Timestamp.now());
+        db.collection("posts").add(post2);
+        Post post3 = new Post("Login to view posts!", "admin", Timestamp.now());
+        db.collection("posts").add(post3);
+        Post post4 = new Post("Create your own posts!", "admin", Timestamp.now());
+        db.collection("posts").add(post4);
+        Post post5 = new Post("Tell us what you think!", "admin", Timestamp.now());
+        db.collection("posts").add(post5);
     }
 }
