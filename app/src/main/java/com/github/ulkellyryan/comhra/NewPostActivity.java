@@ -202,8 +202,7 @@ public class NewPostActivity extends AppCompatActivity {
             post = new Post(newPost.getText().toString(),  user.getDisplayName(), Timestamp.now());
         }
         db.collection("posts").add(post);
-
-
+        
         //go back to DisplayPostsActivity where new post can be seen
         Intent intent = new Intent(this, NewsFeedActivity.class);
         startActivity(intent);
