@@ -6,6 +6,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 public class PostViewHolder extends RecyclerView.ViewHolder{
 
     private final TextView tvPosterName;
@@ -28,7 +33,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder{
         tvPostText.setText(item.getText());
         tvDate.setText(item.getDate());
 
-        GlideApp.with(NewsFeedActivity.getContext())
+        GlideApp.with(getApplicationContext())
                 .load(item.getImageUri())
                 .override(800,400)
                 .into(ivPhoto);
