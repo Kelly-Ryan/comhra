@@ -5,85 +5,123 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class NewsFeedActivity extends AppCompatActivity {
+
+    public static final String KEY_POST_ID = "key_post_id";
+    private FirestoreRecyclerAdapter<Post, PostViewHolder> adapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
-        loadNewsFeed();     //retrieve 5 most recent posts from Cloud Firestore
-    }
 
-    public void loadStockPosts(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        //preloaded posts
-        Post post1 = new Post("Welcome to the Comhrá!", "admin", Timestamp.now());
-        db.collection("posts").add(post1);
-        Post post2 = new Post("Register today!", "admin", Timestamp.now());
-        db.collection("posts").add(post2);
-        Post post3 = new Post("Login to view posts!", "admin", Timestamp.now());
-        db.collection("posts").add(post3);
-        Post post4 = new Post("Create your own posts!", "admin", Timestamp.now());
-        db.collection("posts").add(post4);
-        Post post5 = new Post("Tell us what you think!", "admin", Timestamp.now());
-        db.collection("posts").add(post5);
-    }
+        recyclerView = (RecyclerView) findViewById(R.id.newsFeedRecyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-    public void loadNewsFeed(){
-        final List<Post> listPosts = new ArrayList<Post>(5);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Query query = FirebaseFirestore.getInstance()
+                .collection("posts")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
-        db.collection("posts").orderBy("timestamp").limitToLast(5).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
+                .setQuery(query, Post.class)
+                .setLifecycleOwner(this)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<Post, PostViewHolder>(options) {
+            @NonNull
+            @Override
+            public PostViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
+                View view = LayoutInflater.from(group.getContext())
+                        .inflate(R.layout.post, group, false);
+
+                return new PostViewHolder(view);
+            }
+
+            @Override
+            public void onBindViewHolder(PostViewHolder holder, int position, Post model){
+                holder.setItem(model);
+            }
+        };
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        try{
-                            if(task.isSuccessful()){
-                                for(QueryDocumentSnapshot document : task.getResult() ){
-                                    Post post = document.toObject(Post.class);
-                                    listPosts.add(post);
-                                }
-                                TextView[] recentPosts = new TextView[5];
-                                recentPosts[0] = findViewById(R.id.post0);
-                                recentPosts[1] = findViewById(R.id.post1);
-                                recentPosts[2] = findViewById(R.id.post2);
-                                recentPosts[3] = findViewById(R.id.post3);
-                                recentPosts[4] = findViewById(R.id.post4);
-                                for(int i = 0, j = 4; (i < 5 && j >= 0); i++, j--){
-                                    recentPosts[i].setText(listPosts.get(j).toString());
-                                }
-                            } else {
-                                Log.w("tag", "Error getting documents.", task.getException());
-                            }
-                        } catch (IndexOutOfBoundsException e) { //if there are fewer than 5 posts available stock posts will be uploaded and retrieved
-                            loadStockPosts();
-                            loadNewsFeed();
-                        }
+                    public void onItemClick(View view, int position) {
+                        DocumentSnapshot post = adapter.getSnapshots().getSnapshot(position);
+                        String postId = post.getReference().getId();
+
+                        Intent intent = new Intent(getApplicationContext(), PostDetailActivity.class);
+                        intent.putExtra(KEY_POST_ID, postId);
+
+                        startActivity(intent);
                     }
-                });
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        //TODO if user is post owner display option to delete
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        DocumentSnapshot post = adapter.getSnapshots().getSnapshot(position);
+                        String postId = post.getReference().getId();
+
+                        db.collection("posts").document(postId).
+                                delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //TODO display dialog to delete post
+                                        Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                                        Toast.makeText(getApplicationContext(),"Post deleted!", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("TAG", "Error deleting post: ", e);
+                                        Toast.makeText(getApplicationContext(),"Error deleting post: " + e, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+        );
     }
 
     //start NewPostActivity
     public void createNewPost(View view){
         Intent intent = new Intent(this, NewPostActivity.class);
         startActivity(intent);
+    }
+
+    public void viewProfile(View view){
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void loadStockPosts(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //Welcome post
+        db.collection("posts").add(new Post("Welcome to Comhrá!", "admin", Timestamp.now()));
     }
 }

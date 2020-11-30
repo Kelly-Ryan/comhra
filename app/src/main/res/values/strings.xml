@@ -2,12 +2,20 @@
     <string name="app_name">comhra</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="loginButtonText">Login</string>
+    <string name="loginButtonText">Login/Register</string>
     <string name="comhrá">comhrá</string>
     <string name="loginText">Login</string>
     <string name="submitPostButtonText">Submit Post</string>
-    <string name="createNewPostButtonText">Create New Post</string>
+    <string name="createNewPostButtonText">New Post</string>
     <string name="Profile" />
     <string name="profileButtonText">Profile</string>
     <string name="friendsListButtonText">Friends</string>
+    <string name="textPostHint">write a post...</string>
+    <string name="photoButtonText">Add Photo</string>
+    <string name="galleryButtonText">Gallery</string>
+    <string name="postTextViewDesc">Post Text</string>
+    <string name="PosterName">Poster Name</string>
+    <string name="postDate">Post Date</string>
+    <string name="profilePhoto">Profile Photo</string>
+    <string name="postImage">Post Image</string>
 </resources>

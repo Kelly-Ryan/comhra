@@ -4,28 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".FriendsActivity">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/comhra_logo3"
         android:layout_width="239dp"
         android:layout_height="155dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/comhr__logo" />
 
-    <Button
-        android:id="@+id/loginButton"
+    <TextView
+        android:id="@+id/friendsListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:onClick="onClickLogIn"
-        android:text="@string/loginButtonText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        android:text="Friends List"
+        tools:layout_editor_absoluteX="173dp"
+        tools:layout_editor_absoluteY="217dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
