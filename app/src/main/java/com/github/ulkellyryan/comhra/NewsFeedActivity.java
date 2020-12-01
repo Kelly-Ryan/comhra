@@ -74,7 +74,6 @@ public class NewsFeedActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(getApplicationContext(), PostDetailActivity.class);
                         intent.putExtra(KEY_POST_ID, postId);
-
                         startActivity(intent);
                     }
 
