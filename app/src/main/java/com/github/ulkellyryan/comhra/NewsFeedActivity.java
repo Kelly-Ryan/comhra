@@ -28,21 +28,20 @@ public class NewsFeedActivity extends AppCompatActivity {
 
     public static final String KEY_POST_ID = "key_post_id";
     private FirestoreRecyclerAdapter<Post, PostViewHolder> adapter;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
 
-        recyclerView = (RecyclerView) findViewById(R.id.newsFeedRecyclerView);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.newsFeedRecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("posts")
-                .orderBy("timestamp", Query.Direction.DESCENDING);
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(50);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, Post.class)
@@ -81,28 +80,7 @@ public class NewsFeedActivity extends AppCompatActivity {
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        //TODO if user is post owner display option to delete
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        DocumentSnapshot post = adapter.getSnapshots().getSnapshot(position);
-                        String postId = post.getReference().getId();
-
-                        db.collection("posts").document(postId).
-                                delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        //TODO display dialog to delete post
-                                        Log.d("TAG", "DocumentSnapshot successfully deleted!");
-                                        Toast.makeText(getApplicationContext(),"Post deleted!", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("TAG", "Error deleting post: ", e);
-                                        Toast.makeText(getApplicationContext(),"Error deleting post: " + e, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                        //do nothing
                     }
                 })
         );
