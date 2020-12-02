@@ -8,30 +8,36 @@
     tools:context=".PostDetailActivity">
 
     <Button
-        android:id="@+id/confirmDeletePostButton"
+        android:id="@+id/confirmDeletePost"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/deletePostConfirm"
+        app:layout_constraintEnd_toStartOf="@+id/cancelDeletePost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deletePostText" />
+
+    <Button
+        android:id="@+id/cancelDeletePost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="@string/deletePostConfirm"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deletePostTextView" />
-
-    <Button
-        android:id="@+id/cancelDeletePostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deletePostTextView" />
+        app:layout_constraintStart_toEndOf="@+id/confirmDeletePost"
+        app:layout_constraintTop_toBottomOf="@+id/deletePostText" />
 
     <TextView
-        android:id="@+id/deletePostTextView"
+        android:id="@+id/deletePostText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/deletePostDialog"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

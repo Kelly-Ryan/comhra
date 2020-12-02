@@ -29,15 +29,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class PostDetailActivity extends AppCompatActivity implements DeletePostDialogFragment.OnInputListener{
+public class PostDetailActivity extends AppCompatActivity implements DeletePostDialogFragment.OnInputListener, DeleteCommentDialogFragment.OnInputListener{
 
     public static final String KEY_POST_ID = "key_post_id";
+    public static final String KEY_COMMENT_ID = "key_comment_id";
 
     private TextView tvPosterName;
     private TextView tvPostText;
     private TextView tvDate;
     private ImageView ivPhoto;
-    private String postId;
+    private String postId, commentId;
 
     private FirebaseFirestore firestore;
     private FirestoreRecyclerAdapter<Comment, CommentViewHolder> adapter;
@@ -51,8 +52,8 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         tvPostText = findViewById(R.id.postTextView2);
         tvDate = findViewById(R.id.dateTextView2);
         ivPhoto = findViewById(R.id.postImageView2);
-        Button deletePostButton = findViewById(R.id.deletePostButton);
-        Button addCommentButton = findViewById(R.id.addCommentButton);
+        Button deletePostButton = findViewById(R.id.deletePost);
+        Button addCommentButton = findViewById(R.id.addComment);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -103,11 +104,35 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
             }
 
             @Override
-            public void onBindViewHolder(CommentViewHolder holder, int position, Comment model){
+            public void onBindViewHolder(@NonNull CommentViewHolder holder, int position, @NonNull Comment model){
                 holder.setItem(model);
             }
         };
         recyclerView.setAdapter(adapter);
+
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                    }
+
+                    //select comment for deletion
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        DocumentSnapshot comment = adapter.getSnapshots().getSnapshot(position);
+                        commentId = comment.getReference().getId();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString(KEY_POST_ID, postId);
+                        bundle.putString(KEY_COMMENT_ID, commentId);
+
+                        DeleteCommentDialogFragment dialog = new DeleteCommentDialogFragment();
+                        dialog.setArguments(bundle);    //pass commentId to dialog
+                        dialog.show(getSupportFragmentManager(), "DeleteCommentDialog");
+                    }
+                })
+        );
 
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +164,7 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         EditText newComment = findViewById(R.id.newCommentText);
 
+        assert user != null;
         Comment comment = new Comment(user.getDisplayName(), newComment.getText().toString(), Timestamp.now());
         firestore.collection("posts").document(postId)
                  .collection("comments").add(comment);
@@ -147,5 +173,12 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         Intent intent = new Intent(this, PostDetailActivity.class);
         intent.putExtra(KEY_POST_ID, postId);
         startActivity(intent);
+    }
+
+    public void deleteComment(String postId, String commentId){
+        firestore.collection("posts").document(postId)
+                .collection("comments").document(commentId).delete();
+
+        Toast.makeText(this, "Comment deleted.", Toast.LENGTH_SHORT).show();
     }
 }
