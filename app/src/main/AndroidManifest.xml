@@ -21,10 +21,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Comhra">
-        <activity android:name=".PostDetailActivity"></activity>
+        <activity android:name=".PostDetailActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            android:noHistory = "true"/>
         <activity android:name=".FriendsActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".NewPostActivity" />
+        <activity android:name=".NewPostActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity android:name=".NewsFeedActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -48,10 +48,10 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
-        tvPosterName = findViewById(R.id.posterNameTextView2);
-        tvPostText = findViewById(R.id.postTextView2);
-        tvDate = findViewById(R.id.dateTextView2);
-        ivPhoto = findViewById(R.id.postImageView2);
+        tvPosterName = findViewById(R.id.posterName);
+        tvPostText = findViewById(R.id.postText);
+        tvDate = findViewById(R.id.dateText);
+        ivPhoto = findViewById(R.id.postImage);
         Button deletePostButton = findViewById(R.id.deletePost);
         Button addCommentButton = findViewById(R.id.addComment);
 
@@ -85,8 +85,7 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("posts").document(postId).collection("comments")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(50);
+                .orderBy("timestamp", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<Comment> options = new FirestoreRecyclerOptions.Builder<Comment>()
                 .setQuery(query, Comment.class)
@@ -162,12 +161,14 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
     
     public void addComment(View view){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        EditText newComment = findViewById(R.id.newCommentText);
+        EditText newComment = findViewById(R.id.newComment);
 
         assert user != null;
         Comment comment = new Comment(user.getDisplayName(), newComment.getText().toString(), Timestamp.now());
         firestore.collection("posts").document(postId)
                  .collection("comments").add(comment);
+
+        Toast.makeText(this, "Comment submitted.", Toast.LENGTH_SHORT).show();
 
         //refresh PostDetailActivity where new comment can be viewed
         Intent intent = new Intent(this, PostDetailActivity.class);
