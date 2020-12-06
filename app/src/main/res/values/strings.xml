@@ -18,4 +18,11 @@
     <string name="postDate">Post Date</string>
     <string name="profilePhoto">Profile Photo</string>
     <string name="postImage">Post Image</string>
+    <string name="deletePost">Delete Post</string>
+    <string name="addComment">Add Comment</string>
+    <string name="deletePostDialog">Are you sure you want to delete this post?</string>
+    <string name="deletePostConfirm">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="comment">write a comment...</string>
+    <string name="deleteCommentDialog">Are you sure you want to delete this comment?</string>
 </resources>

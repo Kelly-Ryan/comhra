@@ -136,8 +136,6 @@ public class NewPostActivity extends AppCompatActivity {
                         Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
                     }
                 });
-
-                Toast.makeText(NewPostActivity.this, "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -190,7 +188,7 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     public void submitPost(View view){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         EditText newPost = findViewById(R.id.newPostText);
         Post post;
@@ -201,7 +199,7 @@ public class NewPostActivity extends AppCompatActivity {
         } else {
             post = new Post(newPost.getText().toString(),  user.getDisplayName(), Timestamp.now());
         }
-        db.collection("posts").add(post);
+        firestore.collection("posts").add(post);
 
         //go back to DisplayPostsActivity where new post can be seen
         Intent intent = new Intent(this, NewsFeedActivity.class);
