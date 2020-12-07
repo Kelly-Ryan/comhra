@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private int RC_SIGN_IN = 123;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

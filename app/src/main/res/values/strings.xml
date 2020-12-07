@@ -25,4 +25,20 @@
     <string name="cancel">Cancel</string>
     <string name="comment">write a comment...</string>
     <string name="deleteCommentDialog">Are you sure you want to delete this comment?</string>
+    <string name="bio">Bio:</string>
+    <string name="email">Email:</string>
+    <string name="location">Location</string>
+    <string name="birthday">Birthday:</string>
+    <string name="location_text_goes_here">[location text goes here]</string>
+    <string name="bio_text_goes_here">[bio text goes here]</string>
+    <string name="email_goes_here">[email goes here]</string>
+    <string name="birthday_goes_here">[birthday goes here]</string>
+    <string name="display_name_here">[display name here]</string>
+    <string name="display_pronouns_here">[display pronouns here]</string>
+    <string name="profilePhotoDesc">user profile photo</string>
+    <string name="logoDesc">Comhrá Logo</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="displayNameHint">Enter your name</string>
+    <string name="emailHint">your email address e.g. you@example.com</string>
 </resources>

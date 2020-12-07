@@ -2,78 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayout"
+    android:id="@+id/viewProfileConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewProfileFragment">
 
     <TextView
-        android:id="@+id/profileBio2"
+        android:id="@+id/profileEmailView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="50dp"
-        android:text="Bio:"
+        android:layout_marginTop="64dp"
+        android:text="@string/email"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePhotoView" />
-
-    <TextView
-        android:id="@+id/profileEmail2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
-        android:text="Email:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileBirthday4" />
-
-    <TextView
-        android:id="@+id/profileLocation2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
-        android:text="Location"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileBio2" />
-
-    <TextView
-        android:id="@+id/profileBirthday4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
-        android:text="Birthday:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileLocation2" />
-
-    <TextView
-        android:id="@+id/profileLocationText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="[location text goes here]"
-        android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/profileLocation2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/profileBioText"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="64dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="[bio text goes here]"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePhotoView" />
 
     <TextView
@@ -82,64 +24,41 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="[email goes here]"
+        android:text="@string/email_goes_here"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/profileEmail2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileEmailView"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/profileBirthday2"
+        android:id="@+id/profileNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="[birthday goes here]"
-        android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/profileBirthday4"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/profileName3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="[display name here]"
+        android:layout_marginTop="64dp"
+        android:text="@string/display_name_here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comhra_logo4" />
-
-    <TextView
-        android:id="@+id/profilePronouns3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="[display pronouns here]"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileName3" />
+        app:layout_constraintTop_toBottomOf="@+id/logoViewProfile" />
 
     <ImageView
         android:id="@+id/profilePhotoView"
-        android:layout_width="144dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/fui_ic_anonymous_white_24dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/profilePhotoDesc"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePronouns3"
+        app:layout_constraintTop_toBottomOf="@+id/profileNameView"
         app:srcCompat="@drawable/profile_icon" />
 
     <ImageView
-        android:id="@+id/comhra_logo4"
+        android:id="@+id/logoViewProfile"
         android:layout_width="239dp"
         android:layout_height="155dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/logoDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -151,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
         android:layout_marginBottom="35dp"
-        android:text="Edit Profile"
+        android:text="@string/edit_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

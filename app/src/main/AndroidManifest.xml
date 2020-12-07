@@ -25,7 +25,8 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
             android:noHistory = "true"/>
         <activity android:name=".FriendsActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"
+            android:noHistory = "true"/>
         <activity android:name=".NewPostActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity android:name=".NewsFeedActivity" />
