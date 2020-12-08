@@ -192,6 +192,7 @@ public class NewPostActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         EditText newPost = findViewById(R.id.newPostText);
         Post post;
+        assert user != null;
 
         if(postContainsImage){
             post = new Post(newPost.getText().toString(), imageUri,  user.getDisplayName(), Timestamp.now());

@@ -42,7 +42,7 @@
     <string name="emailHint">you@example.com</string>
     <string name="pronouns">enter your pronouns</string>
     <string name="name">name</string>
-    <string name="bioDesc">say something about yourself</string>
+    <string name="bioDesc">about you</string>
     <string name="locationHint">where are you?</string>
     <string name="birthdayHint">when\'s your birthday?</string>
 </resources>

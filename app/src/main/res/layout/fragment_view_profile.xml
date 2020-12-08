@@ -8,10 +8,21 @@
     tools:context=".ViewProfileFragment">
 
     <TextView
+        android:id="@+id/profileEmail2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/email"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileLocation2" />
+
+    <TextView
         android:id="@+id/profileBio2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="50dp"
         android:text="@string/bio"
         android:textSize="18sp"
@@ -19,22 +30,11 @@
         app:layout_constraintTop_toBottomOf="@+id/profilePhotoView" />
 
     <TextView
-        android:id="@+id/profileEmail2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/email"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileLocation2" />
-
-    <TextView
         android:id="@+id/profileLocation2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="32dp"
         android:text="@string/location"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,34 +42,36 @@
 
     <TextView
         android:id="@+id/profileLocationText"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/profileLocation2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/profileEmailText"
+        app:layout_constraintTop_toBottomOf="@+id/profileBioText" />
 
     <TextView
         android:id="@+id/profileBioText"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="64dp"
         android:ems="10"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/profileLocationText"
         app:layout_constraintTop_toBottomOf="@+id/profilePhotoView" />
 
     <TextView
         android:id="@+id/profileEmailText"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="64dp"
         android:ems="10"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/profileEmail2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profileEmail2"
+        app:layout_constraintTop_toBottomOf="@+id/profileLocationText" />
 
     <TextView
         android:id="@+id/profileName3"
