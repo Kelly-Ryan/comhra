@@ -1,13 +1,11 @@
 package com.github.ulkellyryan.comhra;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -22,15 +20,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 public class ViewProfileFragment extends Fragment {
 
-    private TextView  name, email;
+    private TextView  name, email, pronouns, bio, location;
     private ImageView profilePhoto;
-    private final Uri defaultProfilePhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/comhra-35d60.appspot.com/o/pictures%2Fdefault-avatar.png?alt=media&token=912372e4-9dca-4f78-be13-d28dda1577ba");
-    private FirebaseUser fbuser;
 
     public ViewProfileFragment() {
         // Required empty public constructor
@@ -41,7 +40,10 @@ public class ViewProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_view_profile, container, false);
 
-        name = v.findViewById(R.id.profileNameView);
+        name = v.findViewById(R.id.profileName3);
+        pronouns = v.findViewById(R.id.profilePronouns3);
+        bio = v.findViewById(R.id.profileBioText);
+        location = v.findViewById(R.id.profileLocationText);
         email = v.findViewById(R.id.profileEmailText);
         profilePhoto = v.findViewById(R.id.profilePhotoView);
 
@@ -51,33 +53,40 @@ public class ViewProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
 
-        fbuser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
         assert fbuser != null;
-        String nametext = fbuser.getDisplayName();
-        String emailtext = fbuser.getEmail();
 
-        name.setText(nametext);
-        email.setText(emailtext);
+        DocumentReference docRef = firestore.collection("users").document(fbuser.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    assert document != null;
+                    User user = document.toObject(User.class);
+                    if (document.exists()) {
+                        assert user != null;
+                        name.setText(user.getName());
+                        pronouns.setText(user.getPronouns());
+                        bio.setText(user.getBio());
+                        location.setText(user.getLocation());
+                        email.setText(user.getEmail());
 
-        if(fbuser.getPhotoUrl() == null){
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setPhotoUri(defaultProfilePhoto)
-                .build();
+                        GlideApp.with(requireContext())
+                                .load(user.getPhotoUri())
+                                .into(profilePhoto);
 
-            fbuser.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "User profile updated.");
-                        }
+                        Log.d("TAG", "DocumentSnapshot data retrieved: " + document.getData());
+                    } else {
+                        firestore.collection("users").document(fbuser.getUid()).set(new User(fbuser.getDisplayName(), fbuser.getEmail(), Objects.requireNonNull(fbuser.getPhotoUrl()).toString(), fbuser.getUid()));
+                        Log.d("TAG", "User added to Users collection.");
                     }
-                });
-        }
-
-        GlideApp.with(requireContext())
-                .load(fbuser.getPhotoUrl())
-                .into(profilePhoto);
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
 
         Button editProfileButton = view.findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {

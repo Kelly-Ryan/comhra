@@ -2,33 +2,45 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayout"
+    android:id="@+id/ContstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfileFragment">
 
     <ImageView
-        android:id="@+id/profilePhotoEdit"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="24dp"
+        android:id="@+id/profilePhotoView2"
+        android:layout_width="144dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/fui_ic_anonymous_white_24dp"
-        android:contentDescription="@string/profilePhoto"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileEditDisplayName"
+        app:layout_constraintTop_toBottomOf="@+id/profileEditPronouns"
         app:srcCompat="@drawable/profile_icon" />
+
+    <EditText
+        android:id="@+id/profileEditPronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:hint="@string/pronouns"
+        android:imeOptions="actionDone"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileEditDisplayName" />
 
     <EditText
         android:id="@+id/profileEditDisplayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:background="@null"
-        android:hint="@string/displayNameHint"
+        android:hint="@string/name"
         android:imeOptions="actionDone"
-        android:inputType="text|textAutoCorrect"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,29 +48,79 @@
         app:layout_constraintTop_toBottomOf="@+id/comhra_logo2" />
 
     <EditText
-        android:id="@+id/profileEmailEditText"
-        android:layout_width="wrap_content"
+        android:id="@+id/profileLocationEditText"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="36dp"
+        android:background="@null"
+        android:ems="10"
+        android:hint="@string/locationHint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/profileLocation"
+        app:layout_constraintStart_toStartOf="@+id/profileEmailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/profileBioEditText" />
+
+    <EditText
+        android:id="@+id/profileBioEditText"
+        android:layout_width="199dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@null"
+        android:ems="10"
+        android:hint="@string/bioDesc"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/profileLocationEditText"
+        app:layout_constraintTop_toBottomOf="@+id/profilePhotoView2" />
+
+    <EditText
+        android:id="@+id/profileEmailEditText"
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="40dp"
         android:background="@null"
         android:ems="10"
         android:hint="@string/emailHint"
         android:imeOptions="actionDone"
         android:inputType="textEmailAddress"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/profileEmail"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/profileEmail"
+        app:layout_constraintTop_toBottomOf="@+id/profileLocationEditText" />
+
+    <TextView
+        android:id="@+id/profileLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/location"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/profileEmail"
+        app:layout_constraintTop_toBottomOf="@+id/profileBio" />
 
     <TextView
         android:id="@+id/profileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="64dp"
-        android:text="Email:"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/email"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePhotoEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/profileLocation" />
+
+    <TextView
+        android:id="@+id/profileBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/bio"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/profileLocation"
+        app:layout_constraintTop_toBottomOf="@+id/profilePhotoView2" />
 
     <ImageView
         android:id="@+id/comhra_logo2"
@@ -74,35 +136,32 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="53dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="64dp"
         android:text="@string/save_changes"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileEmailEditText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/photoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="65dp"
         android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toTopOf="@+id/profileEmailEditText"
+        app:layout_constraintBottom_toTopOf="@+id/profileBioEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/profilePhotoEdit" />
+        app:layout_constraintStart_toEndOf="@+id/profilePhotoView2" />
 
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginBottom="56dp"
-        android:text="back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginEnd="64dp"
+        android:text="@string/profileButtonText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/saveButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
