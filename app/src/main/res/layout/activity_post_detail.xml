@@ -13,12 +13,12 @@
 
         <ImageView
             android:id="@+id/profilePhotoPost"
-            android:layout_width="42dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="36dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/profilePhoto"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/posterName"
+            app:layout_constraintStart_toStartOf="@+id/posterName"
             app:layout_constraintTop_toBottomOf="@+id/posterName"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -29,7 +29,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/PosterName"
-            android:textSize="12sp"
+            android:textColor="#787070"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +54,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/postTextViewDesc"
-            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/posterName"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +65,8 @@
             android:layout_height="16dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/postDate"
-            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/postImage"
             app:layout_constraintTop_toBottomOf="@+id/postImage"
@@ -74,6 +77,7 @@
         android:id="@+id/commentsRecycler"
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:paddingLeft="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:itemCount="0">
@@ -121,9 +125,10 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/comment"
-            android:inputType="text|textAutoCorrect"
             android:imeOptions="actionDone"
+            android:inputType="text|textAutoCorrect"
             android:padding="5sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/deletePost"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

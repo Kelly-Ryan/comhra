@@ -1,79 +1,108 @@
 package com.github.ulkellyryan.comhra;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
+
 public class ViewProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextView  name, email, pronouns, bio, location;
+    private ImageView profilePhoto;
 
     public ViewProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ViewProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ViewProfileFragment newInstance(String param1, String param2) {
-        ViewProfileFragment fragment = new ViewProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_view_profile, container, false);
+
+        name = v.findViewById(R.id.profileName3);
+        pronouns = v.findViewById(R.id.profilePronouns3);
+        bio = v.findViewById(R.id.profileBioText);
+        location = v.findViewById(R.id.profileLocationText);
+        email = v.findViewById(R.id.profileEmailText);
+        profilePhoto = v.findViewById(R.id.profilePhotoView);
+
+        return v;
     }
 
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstance){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
+        assert fbuser != null;
+
+        DocumentReference docRef = firestore.collection("users").document(fbuser.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    assert document != null;
+                    User user = document.toObject(User.class);
+                    if (document.exists()) {
+                        assert user != null;
+                        name.setText(user.getName());
+                        pronouns.setText(user.getPronouns());
+                        bio.setText(user.getBio());
+                        location.setText(user.getLocation());
+                        email.setText(user.getEmail());
+
+                        GlideApp.with(requireContext())
+                                .load(user.getPhotoUri())
+                                .into(profilePhoto);
+
+                        Log.d("TAG", "DocumentSnapshot data retrieved: " + document.getData());
+                    } else {
+                        firestore.collection("users").document(fbuser.getUid()).set(new User(fbuser.getDisplayName(), fbuser.getEmail(), Objects.requireNonNull(fbuser.getPhotoUrl()).toString(), fbuser.getUid()));
+                        Log.d("TAG", "User added to Users collection.");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
 
         Button editProfileButton = view.findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_viewProfileFragment_to_editProfileFragment);
+            }
+        });
+
+        Button backButton = view.findViewById(R.id.backBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), NewsFeedActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -5,40 +5,37 @@ import com.google.firebase.Timestamp;
 
 public class Post {
 
-    String text, user;
+    String text, user, uid;
     Timestamp timestamp;
-    String imageUri;
+    String imageUri, profilePhoto;
+
 
     public Post(){
     }
 
-    public Post(String text, String user, Timestamp timestamp){
+    public Post(String text, String user, String profilePhoto, String uid, Timestamp timestamp){
         this.text = text;
         this.user = user;
+        this.profilePhoto = profilePhoto;
+        this.uid = uid;
         this.timestamp = timestamp;
     }
 
-    public Post(String text, String uri, String user, Timestamp timestamp){
+    public Post(String text, String uri, String user, String profilePhoto, String uid, Timestamp timestamp){
         this.text = text;
         this.imageUri = uri;
         this.user = user;
+        this.profilePhoto = profilePhoto;
+        this.uid = uid;
         this.timestamp = timestamp;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getUid(){
+        return uid;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
+    public String getProfilePhoto(){
+        return profilePhoto;
     }
 
     public String getText() {

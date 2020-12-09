@@ -20,7 +20,10 @@
         android:id="@+id/friendsListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
         android:text="Friends List"
-        tools:layout_editor_absoluteX="173dp"
-        tools:layout_editor_absoluteY="217dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comhra_logo3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

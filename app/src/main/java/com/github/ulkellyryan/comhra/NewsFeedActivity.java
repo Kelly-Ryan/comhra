@@ -40,8 +40,7 @@ public class NewsFeedActivity extends AppCompatActivity {
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("posts")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(50);
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, Post.class)
@@ -96,9 +95,9 @@ public class NewsFeedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loadStockPosts(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        //Welcome post
-        db.collection("posts").add(new Post("Welcome to Comhrá!", "admin", Timestamp.now()));
+    public void friendsList(View view){
+        Intent intent = new Intent(this, FriendsActivity.class);
+        startActivity(intent);
     }
+
 }

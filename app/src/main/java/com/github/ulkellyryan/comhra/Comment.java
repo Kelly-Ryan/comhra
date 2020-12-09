@@ -6,41 +6,38 @@ import com.google.firebase.Timestamp;
 
 public class Comment {
 
+    String text, user, profilePhoto, uid;
     Timestamp timestamp;
 
     public Comment(){
     }
 
-    public Comment(String user, String text, Timestamp timestamp) {
+    public Comment(String user, String text, String profilePhoto, String uid, Timestamp timestamp) {
         this.user = user;
         this.text = text;
+        this.profilePhoto = profilePhoto;
+        this.uid = uid;
         this.timestamp = timestamp;
     }
 
-    String text, user;
+    public String getProfilePhoto(){
+        return profilePhoto;
+    }
+
+    public String getUid(){
+        return uid;
+    }
 
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public String getUser() {
         return user;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     public Timestamp getTimestamp() {
         return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getDate(){
