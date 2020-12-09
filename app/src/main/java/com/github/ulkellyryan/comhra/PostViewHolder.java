@@ -14,7 +14,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder{
     private final TextView tvPostText;
     private final TextView tvDate;
     private final ImageView ivPhoto;
-    //private final ImageView ivProfilePhoto;
+    private final ImageView ivProfilePhoto;
 
     public PostViewHolder(View itemView){
         super(itemView);
@@ -22,7 +22,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder{
         tvPostText = itemView.findViewById(R.id.postTextView);
         tvDate = itemView.findViewById(R.id.dateTextView);
         ivPhoto = itemView.findViewById(R.id.postImageView);
-        //ivProfilePhoto = itemView.findViewById(R.id.profilePhoto);
+        ivProfilePhoto = itemView.findViewById(R.id.profilePhoto);
     }
 
     public void setItem(Post item){

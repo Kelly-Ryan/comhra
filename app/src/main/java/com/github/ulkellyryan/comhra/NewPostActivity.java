@@ -189,16 +189,16 @@ public class NewPostActivity extends AppCompatActivity {
 
     public void submitPost(View view){
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
         EditText newPost = findViewById(R.id.newPostText);
         Post post;
-        assert user != null;
+        assert fbuser != null;
 
         if(postContainsImage){
-            post = new Post(newPost.getText().toString(), imageUri,  user.getDisplayName(), Timestamp.now());
+            post = new Post(newPost.getText().toString(), imageUri,  fbuser.getDisplayName(), fbuser.getUid(), Timestamp.now());
             postContainsImage = false;
         } else {
-            post = new Post(newPost.getText().toString(),  user.getDisplayName(), Timestamp.now());
+            post = new Post(newPost.getText().toString(),  fbuser.getDisplayName(), fbuser.getUid(), Timestamp.now());
         }
         firestore.collection("posts").add(post);
 

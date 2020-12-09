@@ -37,7 +37,7 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
     private TextView tvPosterName;
     private TextView tvPostText;
     private TextView tvDate;
-    private ImageView ivPhoto;
+    private ImageView ivPhoto, profilePhoto;
     private String postId, commentId;
 
     private FirebaseFirestore firestore;
@@ -52,8 +52,10 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         tvPostText = findViewById(R.id.postText);
         tvDate = findViewById(R.id.dateText);
         ivPhoto = findViewById(R.id.postImage);
+        profilePhoto = findViewById(R.id.profilePhotoPost);
         Button deletePostButton = findViewById(R.id.deletePost);
         Button addCommentButton = findViewById(R.id.addComment);
+
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -67,6 +69,7 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Post post = documentSnapshot.toObject(Post.class);
                 assert post != null;
+
                 tvPosterName.setText(post.getUser());
                 tvPostText.setText(post.getText());
                 tvDate.setText(post.getDate());
