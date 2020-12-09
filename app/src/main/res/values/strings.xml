@@ -45,4 +45,5 @@
     <string name="bioDesc">about you</string>
     <string name="locationHint">where are you?</string>
     <string name="birthdayHint">when\'s your birthday?</string>
+    <string name="backButton">Back</string>
 </resources>

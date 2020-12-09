@@ -304,4 +304,6 @@ public class EditProfileFragment extends Fragment {
                         "pronouns", pronouns.getText().toString());
     }
 
+
+
 }

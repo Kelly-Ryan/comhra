@@ -1,5 +1,6 @@
 package com.github.ulkellyryan.comhra;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,10 +26,15 @@ public class PostViewHolder extends RecyclerView.ViewHolder{
         ivProfilePhoto = itemView.findViewById(R.id.profilePhoto);
     }
 
+    @SuppressLint("RestrictedApi")
     public void setItem(Post item){
         tvPosterName.setText(item.getUser());
         tvPostText.setText(item.getText());
         tvDate.setText(item.getDate());
+
+        GlideApp.with(getApplicationContext())
+                .load(item.getProfilePhoto())
+                .into(ivProfilePhoto);
 
         GlideApp.with(getApplicationContext())
                 .load(item.getImageUri())

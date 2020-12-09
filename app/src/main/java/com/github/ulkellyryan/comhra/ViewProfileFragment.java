@@ -1,5 +1,6 @@
 package com.github.ulkellyryan.comhra;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -95,6 +96,14 @@ public class ViewProfileFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_viewProfileFragment_to_editProfileFragment);
             }
         });
-    }
 
+        Button backButton = view.findViewById(R.id.backBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), NewsFeedActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }

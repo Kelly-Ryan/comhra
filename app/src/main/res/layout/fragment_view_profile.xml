@@ -14,7 +14,8 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="32dp"
         android:text="@string/email"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileLocation2" />
 
@@ -25,7 +26,8 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="50dp"
         android:text="@string/bio"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePhotoView" />
 
@@ -36,7 +38,8 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="32dp"
         android:text="@string/location"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileBio2" />
 
@@ -44,40 +47,41 @@
         android:id="@+id/profileLocationText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:ems="10"
+        android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/profileEmailText"
-        app:layout_constraintTop_toBottomOf="@+id/profileBioText" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileLocation2"
+        app:layout_constraintEnd_toEndOf="@+id/profileEmailText" />
 
     <TextView
         android:id="@+id/profileBioText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:ems="10"
+        android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/profileLocationText"
-        app:layout_constraintTop_toBottomOf="@+id/profilePhotoView" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileBio2"
+        app:layout_constraintEnd_toEndOf="@+id/profileLocationText" />
 
     <TextView
         android:id="@+id/profileEmailText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="36dp"
         android:layout_marginEnd="64dp"
         android:ems="10"
+        android:textColor="@color/black"
         android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileEmail2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/profileEmail2"
-        app:layout_constraintTop_toBottomOf="@+id/profileLocationText" />
+        app:layout_constraintStart_toEndOf="@+id/profileEmail2" />
 
     <TextView
         android:id="@+id/profileName3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,12 +127,26 @@
         android:id="@+id/editProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="64dp"
         android:text="@string/edit_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileEmailText" />
+        app:layout_constraintTop_toBottomOf="@+id/profileEmailText"
+        app:layout_constraintVertical_bias="0.54" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="64dp"
+        android:text="@string/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editProfileButton"
+        app:layout_constraintTop_toTopOf="@+id/editProfileButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

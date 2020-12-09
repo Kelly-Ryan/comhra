@@ -9,41 +9,49 @@
         android:id="@+id/commenterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:textColor="#787070"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/commentText"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
     <ImageView
         android:id="@+id/commentProfilePhoto"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="@+id/commenterName"
-        app:layout_constraintStart_toStartOf="@+id/commenterName"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/commenterName"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/commentText"
-        android:layout_width="242dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/commentDateTime"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/commentProfilePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/commenterName" />
 
     <TextView
         android:id="@+id/commentDateTime"
-        android:layout_width="171dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="127dp"
-        android:layout_marginTop="8dp"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="9dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/commentText"
         app:layout_constraintTop_toBottomOf="@+id/commentText"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@tools:sample/date/mmddyy" />
 </androidx.constraintlayout.widget.ConstraintLayout>

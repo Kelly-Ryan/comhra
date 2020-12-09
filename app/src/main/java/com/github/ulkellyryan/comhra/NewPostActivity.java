@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -195,10 +196,10 @@ public class NewPostActivity extends AppCompatActivity {
         assert fbuser != null;
 
         if(postContainsImage){
-            post = new Post(newPost.getText().toString(), imageUri,  fbuser.getDisplayName(), fbuser.getUid(), Timestamp.now());
+            post = new Post(newPost.getText().toString(), imageUri,  fbuser.getDisplayName(), Objects.requireNonNull(fbuser.getPhotoUrl()).toString(), fbuser.getUid(), Timestamp.now());
             postContainsImage = false;
         } else {
-            post = new Post(newPost.getText().toString(),  fbuser.getDisplayName(), fbuser.getUid(), Timestamp.now());
+            post = new Post(newPost.getText().toString(),  fbuser.getDisplayName(), Objects.requireNonNull(fbuser.getPhotoUrl()).toString(), fbuser.getUid(), Timestamp.now());
         }
         firestore.collection("posts").add(post);
 

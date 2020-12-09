@@ -28,6 +28,7 @@
         android:gravity="center_horizontal"
         android:hint="@string/pronouns"
         android:imeOptions="actionNext"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -42,6 +43,7 @@
         android:background="@null"
         android:hint="@string/name"
         android:imeOptions="actionNext"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -52,44 +54,41 @@
         android:id="@+id/profileLocationEditText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:background="@null"
         android:ems="10"
         android:hint="@string/locationHint"
         android:imeOptions="actionNext"
         android:inputType="text"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/profileEmailEditText"
-        app:layout_constraintTop_toBottomOf="@+id/profileBioEditText" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileLocation"
+        app:layout_constraintEnd_toEndOf="@+id/profileEmailEditText" />
 
     <EditText
         android:id="@+id/profileBioEditText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:background="@null"
         android:ems="10"
         android:hint="@string/bioDesc"
         android:imeOptions="actionNext"
         android:inputType="text"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/profileLocationEditText"
-        app:layout_constraintTop_toBottomOf="@+id/profilePhotoView2" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileBio"
+        app:layout_constraintEnd_toEndOf="@+id/profileLocationEditText" />
 
     <EditText
         android:id="@+id/profileEmailEditText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="36dp"
         android:background="@null"
         android:ems="10"
         android:hint="@string/emailHint"
         android:imeOptions="actionDone"
         android:inputType="textEmailAddress"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/profileEmail"
-        app:layout_constraintTop_toBottomOf="@+id/profileLocationEditText" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/profileEmail"
+        app:layout_constraintStart_toEndOf="@+id/profileEmail" />
 
     <TextView
         android:id="@+id/profileLocation"
@@ -97,7 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/location"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/profileEmail"
         app:layout_constraintTop_toBottomOf="@+id/profileBio" />
 
@@ -108,7 +108,8 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="32dp"
         android:text="@string/email"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileLocation" />
 
@@ -118,7 +119,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="@string/bio"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/profileLocation"
         app:layout_constraintTop_toBottomOf="@+id/profilePhotoView2" />
 

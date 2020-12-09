@@ -29,6 +29,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Objects;
+
 public class PostDetailActivity extends AppCompatActivity implements DeletePostDialogFragment.OnInputListener, DeleteCommentDialogFragment.OnInputListener{
 
     public static final String KEY_POST_ID = "key_post_id";
@@ -39,6 +41,7 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
     private TextView tvDate;
     private ImageView ivPhoto, profilePhoto;
     private String postId, commentId;
+    Post post;
 
     private FirebaseFirestore firestore;
     private FirestoreRecyclerAdapter<Comment, CommentViewHolder> adapter;
@@ -56,7 +59,6 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         Button deletePostButton = findViewById(R.id.deletePost);
         Button addCommentButton = findViewById(R.id.addComment);
 
-
         firestore = FirebaseFirestore.getInstance();
 
         // Get postId from extras
@@ -67,12 +69,16 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         postRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Post post = documentSnapshot.toObject(Post.class);
+                post = documentSnapshot.toObject(Post.class);
                 assert post != null;
 
                 tvPosterName.setText(post.getUser());
                 tvPostText.setText(post.getText());
                 tvDate.setText(post.getDate());
+
+                GlideApp.with(getApplicationContext())
+                        .load(post.getProfilePhoto())
+                        .into(profilePhoto);
 
                 GlideApp.with(getApplicationContext())
                         .load(post.getImageUri())
@@ -122,16 +128,25 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
                     //select comment for deletion
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        DocumentSnapshot comment = adapter.getSnapshots().getSnapshot(position);
-                        commentId = comment.getReference().getId();
+                        DocumentSnapshot documentSnapshot = adapter.getSnapshots().getSnapshot(position);
+                        commentId = documentSnapshot.getReference().getId();
+                        Comment comment = documentSnapshot.toObject(Comment.class);
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString(KEY_POST_ID, postId);
-                        bundle.putString(KEY_COMMENT_ID, commentId);
+                        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
+                        assert fbuser != null;
 
-                        DeleteCommentDialogFragment dialog = new DeleteCommentDialogFragment();
-                        dialog.setArguments(bundle);    //pass commentId to dialog
-                        dialog.show(getSupportFragmentManager(), "DeleteCommentDialog");
+                        if (fbuser.getUid().equals(comment.getUid())) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(KEY_POST_ID, postId);
+                            bundle.putString(KEY_COMMENT_ID, commentId);
+
+                            DeleteCommentDialogFragment dialog = new DeleteCommentDialogFragment();
+                            dialog.setArguments(bundle);    //pass commentId to dialog
+                            dialog.show(getSupportFragmentManager(), "DeleteCommentDialog");
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "You do not have permission to delete this comment.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
         );
@@ -146,11 +161,18 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
         deletePostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString(KEY_POST_ID, postId);
-                DeletePostDialogFragment dialog = new DeletePostDialogFragment();
-                dialog.setArguments(bundle);    //pass postId to dialog
-                dialog.show(getSupportFragmentManager(), "DeletePostDialog");
+                FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
+                assert fbuser != null;
+
+                if(fbuser.getUid().equals(post.getUid())){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(KEY_POST_ID, postId);
+                    DeletePostDialogFragment dialog = new DeletePostDialogFragment();
+                    dialog.setArguments(bundle);    //pass postId to dialog
+                    dialog.show(getSupportFragmentManager(), "DeletePostDialog");
+                } else {
+                    Toast.makeText(getApplicationContext(), "You do not have permission to delete this post.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -163,11 +185,11 @@ public class PostDetailActivity extends AppCompatActivity implements DeletePostD
     }
     
     public void addComment(View view){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
         EditText newComment = findViewById(R.id.newComment);
 
-        assert user != null;
-        Comment comment = new Comment(user.getDisplayName(), newComment.getText().toString(), Timestamp.now());
+        assert fbuser != null;
+        Comment comment = new Comment(fbuser.getDisplayName(), newComment.getText().toString(), Objects.requireNonNull(fbuser.getPhotoUrl()).toString(), fbuser.getUid(), Timestamp.now());
         firestore.collection("posts").document(postId)
                  .collection("comments").add(comment);
 

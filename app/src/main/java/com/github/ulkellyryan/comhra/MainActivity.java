@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickLogIn(View view){
         //Email is chosen authentication method
         List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), RC_SIGN_IN);
+        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).setTheme(R.style.OrangeTheme).build(), RC_SIGN_IN);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
